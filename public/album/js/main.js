@@ -180,6 +180,11 @@ var o = {
 	    	});
 
 	    });
+		$('#movBtn').click(function() {
+			var form = $('#imagesForm');
+			var ids = form.serializeArray();
+			console.log(ids);			
+		});
 	},
 
     renderAlbums: function() {
@@ -278,6 +283,7 @@ var o = {
 					classes = 'class="selected"';
 				}
 				html += '<li ' + classes + '>';
+				html += '<input type="checkbox" name="FileId" class="checkbox" value="'+each.FileId+'" />';
 				html += '<a title="" href="javascript:;" class="a-img"><img  alt="" src="' + src + '" data-original="' + src + '" ></a>';
 				// html += '<div class="tools"><a href="javascript:;" class="del" data-id="' + each.FileId + '"><span class="fa fa-trash"></span></a></div>';
 				html += '<div class="tools clearfix" data-id="' + each.FileId + '"><div class="file-title pull-left">' + each.Title + '</div><div class="pull-right"><a href="javascript:;" class="del" data-id="' + each.FileId + '"><span class="fa fa-trash"></span></a></div></div>';

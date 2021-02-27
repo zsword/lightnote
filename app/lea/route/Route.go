@@ -3,7 +3,8 @@ package route
 import (
 	"github.com/leanote/leanote/app/db"
 	"github.com/revel/revel"
-		// . "github.com/leanote/leanote/app/lea"
+
+	// . "github.com/leanote/leanote/app/lea"
 	"net/url"
 	"strings"
 )
@@ -55,7 +56,7 @@ func RouterFilter(c *revel.Controller, fc []revel.Filter) {
 		// App\auth
 		// App\note
 		// static\static
-		// 
+		//
 		// Log("---------" + route.ControllerName + "  " + path)
 
 		// api设置
@@ -91,7 +92,7 @@ func RouterFilter(c *revel.Controller, fc []revel.Filter) {
 			arg := c.MethodType.Args[i]
 			c.Params.Fixed.Set(arg.Name, value)
 		} else {
-			revel.WARN.Println("Too many parameters to", route.Action, "trying to add", value)
+			revel.AppLog.Warn("Too many parameters to", route.Action, "trying to add", value)
 			break
 		}
 	}

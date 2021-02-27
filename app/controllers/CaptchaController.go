@@ -6,6 +6,7 @@ import (
 	//	"gopkg.in/mgo.v2/bson"
 	. "github.com/leanote/leanote/app/lea"
 	"github.com/leanote/leanote/app/lea/captcha"
+
 	//	"github.com/leanote/leanote/app/types"
 	//	"io/ioutil"
 	//	"fmt"
@@ -13,8 +14,8 @@ import (
 	//	"os"
 	//	"path"
 	//	"strconv"
-	"net/http"
 	"io"
+	"net/http"
 )
 
 // 验证码服务
@@ -40,7 +41,7 @@ func (c Captcha) Get() revel.Result {
 	//	Log(str)
 	//	Log(sessionId)
 	Log("..")
-	sessionService.SetCaptcha(sessionId, str)
+	sessionService.SetCaptcha(sessionId.(string), str)
 
 	return c.Render()
 }

@@ -16,7 +16,7 @@ import (
 //	"strings"
 //	"time"
 	"github.com/revel/revel"
-	"code.google.com/p/go.net/html"
+//	"code.google.com/p/go.net/html"
 	"strings"
 	"strconv"
 )

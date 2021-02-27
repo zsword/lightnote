@@ -3,11 +3,14 @@ package api
 import (
 	"github.com/revel/revel"
 	"gopkg.in/mgo.v2/bson"
+
 	//	"encoding/json"
+	"os"
+
 	"github.com/leanote/leanote/app/controllers"
 	"github.com/leanote/leanote/app/info"
 	. "github.com/leanote/leanote/app/lea"
-	"os"
+
 	//	"fmt"
 	"io/ioutil"
 	//	"fmt"
@@ -23,13 +26,13 @@ type ApiBaseContrller struct {
 
 // 得到token, 这个token是在AuthInterceptor设到Session中的
 func (c ApiBaseContrller) getToken() string {
-	return c.Session["_token"]
+	return c.Session["_token"].(string)
 }
 
 // userId
 // _userId是在AuthInterceptor设置的
 func (c ApiBaseContrller) getUserId() string {
-	return c.Session["_userId"]
+	return c.Session["_userId"].(string)
 }
 
 // 得到用户信息
@@ -38,7 +41,7 @@ func (c ApiBaseContrller) getUserInfo() info.User {
 	if userId == "" {
 		return info.User{}
 	}
-	return userService.GetUserInfo(userId)
+	return userService.GetUserInfo(userId.(string))
 }
 
 // 上传附件

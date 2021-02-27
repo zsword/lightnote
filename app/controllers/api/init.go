@@ -3,9 +3,11 @@ package api
 import (
 	"github.com/leanote/leanote/app/info"
 	"github.com/leanote/leanote/app/service"
+
 	//		. "github.com/leanote/leanote/app/lea"
-	"github.com/revel/revel"
 	"strings"
+
+	"github.com/revel/revel"
 )
 
 var userService *service.UserService
@@ -90,7 +92,7 @@ func AuthInterceptor(c *revel.Controller) revel.Result {
 	if noToken && userId == "" {
 		// 从session中获取, api/file/getImage, api/file/getAttach, api/file/getAllAttach
 		// 客户端
-		userId, _ = c.Session["UserId"]
+		userId, _ = c.Session["UserId"].(string)
 	}
 	c.Session["_userId"] = userId
 

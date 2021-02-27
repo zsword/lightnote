@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"encoding/json"
+
 	"github.com/leanote/leanote/app/info"
 	"github.com/leanote/leanote/app/lea/i18n"
 	"github.com/revel/revel"
 	"gopkg.in/mgo.v2/bson"
+
 	//	. "github.com/leanote/leanote/app/lea"
 	//	"io/ioutil"
 	//	"fmt"
@@ -27,7 +29,7 @@ func (c *BaseController) Message(message string, args ...interface{}) (value str
 
 func (c BaseController) GetUserId() string {
 	if userId, ok := c.Session["UserId"]; ok {
-		return userId
+		return userId.(string)
 	}
 	return ""
 }
@@ -47,14 +49,14 @@ func (c BaseController) GetObjectUserId() bson.ObjectId {
 
 func (c BaseController) GetEmail() string {
 	if email, ok := c.Session["Email"]; ok {
-		return email
+		return email.(string)
 	}
 	return ""
 }
 
 func (c BaseController) GetUsername() string {
 	if email, ok := c.Session["Username"]; ok {
-		return email
+		return email.(string)
 	}
 	return ""
 }
@@ -62,7 +64,7 @@ func (c BaseController) GetUsername() string {
 // 得到用户信息
 func (c BaseController) GetUserInfo() info.User {
 	if userId, ok := c.Session["UserId"]; ok && userId != "" {
-		return userService.GetUserInfo(userId)
+		return userService.GetUserInfo(userId.(string))
 		/*
 			notebookWidth, _ := strconv.Atoi(c.Session["NotebookWidth"])
 			noteListWidth, _ := strconv.Atoi(c.Session["NoteListWidth"])
@@ -92,7 +94,7 @@ func (c BaseController) GetUserInfo() info.User {
 
 func (c BaseController) GetUserAndBlogUrl() info.UserAndBlogUrl {
 	if userId, ok := c.Session["UserId"]; ok && userId != "" {
-		return userService.GetUserAndBlogUrl(userId)
+		return userService.GetUserAndBlogUrl(userId.(string))
 	}
 	return info.UserAndBlogUrl{}
 }
@@ -103,7 +105,7 @@ func (c BaseController) GetSession(key string) string {
 	if !ok {
 		v = ""
 	}
-	return v
+	return v.(string)
 }
 func (c BaseController) SetSession(userInfo info.User) {
 	if userInfo.UserId.Hex() != "" {
@@ -229,7 +231,7 @@ func (c BaseController) RenderTemplateStr(templatePath string) string {
 	}
 
 	tpl := &revel.RenderTemplateResult{
-		Template:   template,
+		Template: template,
 		ViewArgs: c.ViewArgs, // 把args给它
 	}
 

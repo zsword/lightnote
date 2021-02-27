@@ -1,11 +1,15 @@
 package controllers
 
 import (
-	"github.com/revel/revel"
 	"strings"
+
+	"github.com/revel/revel"
+
 	//	"encoding/json"
 	"fmt"
+
 	"github.com/leanote/leanote/app/info"
+
 	// . "github.com/leanote/leanote/app/lea"
 	"github.com/leanote/leanote/app/lea/blog"
 	"gopkg.in/mgo.v2/bson"
@@ -111,7 +115,7 @@ func (c Blog) setPreviewUrl() {
 		userIdOrEmail = username
 	}
 	themeId := c.Session["themeId"]
-	theme := themeService.GetTheme(userId, themeId)
+	theme := themeService.GetTheme(userId, themeId.(string))
 
 	// siteUrl := configService.GetSiteUrl()
 	blogUrl := "/preview" // blog.leanote.com
