@@ -68,7 +68,6 @@ func (c ApiFile) GetImage(fileId string) revel.Result {
 		return c.RenderText("")
 	}
 	basePath := revel.BasePath
-	basePath = "D:/Learn-Docs/leanote"
 	fn := basePath + "/" + strings.TrimLeft(path, "/")
 	fmt.Println("BasePath: " + fn)
 	file, _ := os.Open(fn)
