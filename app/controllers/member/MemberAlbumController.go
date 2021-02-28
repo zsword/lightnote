@@ -17,6 +17,7 @@ type MemberAlbum struct {
 // 图片管理, iframe
 func (c MemberAlbum) Index() revel.Result {
 	c.SetLocale()
+	c.ViewArgs["globalConfigs"] = configService.GetGlobalConfigForUser()
 	return c.RenderTemplate("member/album/index.html")
 }
 

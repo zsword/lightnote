@@ -755,7 +755,9 @@ var o = {
 	        add: function(e, data) {
 	        	// 文件大小限制
 				var size = data.files[0].size;
-	            var maxFileSize = +parent.GlobalConfigs["uploadImageSize"] || 100;
+				var GlobalConfigs = parent.GlobalConfigs||this.GlobalConfigs;
+				console.log(GlobalConfigs, parent, this);
+	            var maxFileSize = +GlobalConfigs["uploadImageSize"] || 100;
 	            if(typeof size == 'number' && size > 1024 * 1024 * maxFileSize) {
 	                var tpl = $('<li><div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a></div></li>');
 	                tpl.find('div').append('<b>Warning:</b> ' + data.files[0].name + ' <small>[<i>' + formatFileSize(data.files[0].size) + '</i>] is bigger than ' + maxFileSize + 'M</small> ');

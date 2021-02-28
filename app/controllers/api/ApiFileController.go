@@ -1,6 +1,8 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/revel/revel"
 	//	"encoding/json"
 	//	. "github.com/leanote/leanote/app/lea"
@@ -66,8 +68,9 @@ func (c ApiFile) GetImage(fileId string) revel.Result {
 		return c.RenderText("")
 	}
 	basePath := revel.BasePath
-	basePath = "D:/NowLean-Docs/leanote"
+	basePath = "D:/Learn-Docs/leanote"
 	fn := basePath + "/" + strings.TrimLeft(path, "/")
+	fmt.Println("BasePath: " + fn)
 	file, _ := os.Open(fn)
 	return c.RenderFile(file, revel.Inline) // revel.Attachment
 }

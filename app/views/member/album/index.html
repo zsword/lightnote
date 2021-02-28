@@ -139,6 +139,7 @@
 {{template "member/footer.html" .}}
 <script>
 // javascript global configration
+var GlobalConfigs = {{.globalConfigs|jsonJs}}; // 2014/11/9 beta2
 var G = {};
 G.imageSrcPrefix = 'upload';
 G.perPageItems = 12;
