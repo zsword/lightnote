@@ -125,10 +125,6 @@ GET     /tinymce/*filepath                       Static.Serve("public/tinymce")
 GET     /upload/*filepath                       Static.Serve("public/upload")
 
 # member
-# the prefix of member's controllername is "Member"
-*       /member               	MemberIndex.Index
-*       /member/index           MemberIndex.Index
-
 # 不知道为什么, group就是不行 member/blog可以
 *       /member/group/index           MemberGroup.Index
 *       /member/group/addGroup           MemberGroup.AddGroup
@@ -137,10 +133,15 @@ GET     /upload/*filepath                       Static.Serve("public/upload")
 *       /member/group/addUser           MemberGroup.AddUser
 *       /member/group/deleteUser           MemberGroup.DeleteUser
 
+# extensions
+GET     /member/album/index           MemberAlbum.Index
+*       /member/album/moveImages      MemberAlbum.MoveAlbumImages
+
 # common
 *       /:controller/:action                    :controller.:action
 *       /api/:controller/:action                :controller.:action
 *       /member/:controller/:action             :controller.:action
 
-# extensions
-*       /member/group/index           MemberAlbum.Index
+# the prefix of member's controllername is "Member"
+*       /member               	MemberIndex.Index
+*       /member/index           MemberIndex.Index

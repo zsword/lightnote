@@ -4,12 +4,14 @@ import (
 	"github.com/revel/revel"
 	//	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+
 	"github.com/leanote/leanote/app/info"
 	. "github.com/leanote/leanote/app/lea"
 	"github.com/leanote/leanote/app/lea/netutil"
 	"gopkg.in/mgo.v2/bson"
-	"io/ioutil"
-	"os"
+
 	//	"strconv"
 	"strings"
 )
@@ -117,7 +119,6 @@ func (c File) uploadImage(from, albumId string) (re info.Re) {
 	// defer file.Close()
 
 	// data, err := ioutil.ReadAll(file)
-	
 
 	// 生成上传路径
 	newGuid := NewGuid()

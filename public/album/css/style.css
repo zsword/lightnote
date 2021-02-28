@@ -246,3 +246,15 @@
   position: absolute;
   margin-left: 5px;
 }
+
+#albumsSwitchDialog {
+  width: 300px;
+  height: 200px;
+  top: 20px;
+  margin: 0 auto;
+}
+.float-msg {
+  position:absolute;
+  top: 50px;
+  right: 10px;
+}
