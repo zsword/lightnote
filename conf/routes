@@ -135,7 +135,8 @@ GET     /upload/*filepath                       Static.Serve("public/upload")
 
 # extensions
 GET     /member/album/index           MemberAlbum.Index
-*       /member/album/moveImages      MemberAlbum.MoveAlbumImages
+POST    /member/album/moveImages      MemberAlbum.MoveAlbumImages
+POST    /member/album/deleteImages    MemberAlbum.DeleteImages
 
 # common
 *       /:controller/:action                    :controller.:action

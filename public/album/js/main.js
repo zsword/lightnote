@@ -181,30 +181,53 @@ var o = {
 	    	});
 
 	    });
-		var albumsSwitchDialog = $("#albumsSwitchDialog").modal({
-			show: false
-		});
-		var movFileIds = [];
-		albumsSwitchDialog.find('#saveMovBtn').click(function() {
-			if(!movFileIds.length) return false;
-			var albumId = $('#albumsSwitch').val();
-			$.post("/member/album/moveImages", {albumId:albumId, fileIds:movFileIds}, function(ret) {
-				albumsSwitchDialog.modal('hide');
-				$("#albumsForList").val(albumId);
-				$("#refresh").click();
+		var movImgBtn = $('#movImgBtn');
+		if(movImgBtn.length) {
+			var albumsSwitchDialog = $("#albumsSwitchDialog").modal({
+				show: false
 			});
-		});
-		$('#movBtn').click(function() {
-			var form = $('#imagesForm');
-			var ids = form.serializeArray();
-			if(!ids.length) return false;
-			movFileIds = [];
-			for(var i=0;i<ids.length;i++) {
-				var obj = ids[i];
-				movFileIds.push(obj.value);
-			}
-			albumsSwitchDialog.modal('show');
-		});		
+			var optImgIds = [];
+			albumsSwitchDialog.find('#saveMovBtn').click(function() {
+				if(!optImgIds.length) return false;
+				var albumId = $('#albumsSwitch').val();
+				$.post("/member/album/moveImages", {albumId:albumId, fileIds:optImgIds}, function(ret) {
+					albumsSwitchDialog.modal('hide');
+					$("#albumsForList").val(albumId);
+					$("#refresh").click();
+				});
+			});
+			movImgBtn.click(function() {
+				var form = $('#imagesForm');
+				var ids = form.serializeArray();
+				if(!ids.length) return false;
+				optImgIds = [];
+				for(var i=0;i<ids.length;i++) {
+					var obj = ids[i];
+					optImgIds.push(obj.value);
+				}
+				albumsSwitchDialog.modal('show');
+			});
+			$('#delImgBtn').click(function() {
+				var form = $('#imagesForm');
+				var ids = form.serializeArray();
+				if(!ids.length) return false;
+				optImgIds = [];
+				for(var i=0;i<ids.length;i++) {
+					var obj = ids[i];
+					optImgIds.push(obj.value);
+				}
+				if(confirm(getMsg("Are you sure to delete this image ?"))) {
+					$.post('/member/album/deleteImages', {fileIds:optImgIds}, function(ret) {
+						if(ret.Msg) {
+							self.showMsg('Deleted Images: '+ret.Item+", "+ret.Msg);						
+						}
+						if(ret.Ok==true) {
+							$("#refresh").click();
+						}
+					});
+				}
+			});
+		}
 	},
 
     renderAlbums: function() {
@@ -443,9 +466,9 @@ var o = {
 			self.renderImages(albumId, 1, true);
 		});
 		
-		$("#imageList").on("click", 'li', function() {
+		$("#imageList").on("click", 'li', function() {			
 			if($(this).hasClass("selected")) {
-				$(this).removeClass("selected");
+				$(this).removeClass("selected");				
 				self.removeSelectedImage($(this));
 			} else {
 				if(self.addSelectedImage($(this))){ 

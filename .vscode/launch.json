@@ -14,7 +14,7 @@
             "mode": "debug",
             "program": "${workspaceRoot}/app/tmp/",
             "env": {
-                "GOPATH": "${workspaceRoot}/src"
+                "GOPATH": "${workspaceRoot}/../"
             },
             "args": ["-srcPath","${workspaceRoot}"]
         }

@@ -62,13 +62,18 @@ func (c MemberAlbum) MoveAlbumImages(albumId string, fileIds []string) revel.Res
 	return c.RenderJSON(len(fileIds))
 }
 
-func (c MemberAlbum) DeleteAlbumImages(fileIds []string) revel.Result {
+func (c MemberAlbum) DeleteImages(fileIds []string) revel.Result {
+	re := info.NewRe()
 	num := 0
 	for _, v := range fileIds {
-		suc, _ := fileService.DeleteImage(c.GetUserId(), v)
+		suc, msg := fileService.DeleteImage(c.GetUserId(), v)
 		if suc {
 			num++
+			re.Ok = true
+		} else {
+			re.Msg = msg
 		}
 	}
-	return c.RenderJSON(num)
+	re.Item = num
+	return c.RenderJSON(re)
 }
