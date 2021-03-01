@@ -14,7 +14,6 @@ func main() {
 	revel.Init("", "github.com/leanote/leanote", "")
 	c := &model.CommandConfig{}
 	paths := &model.RevelContainer{}
-	fmt.Println(revel.BasePath)
 	_, err := harness.Build(c, paths) // ok, err
 	if err != nil {
 		panic(err)
