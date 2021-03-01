@@ -1,6 +1,8 @@
 package member
 
 import (
+	"strings"
+
 	"github.com/revel/revel"
 	//	"encoding/json"
 	"github.com/leanote/leanote/app/info"
@@ -17,6 +19,7 @@ type MemberAlbum struct {
 // 图片管理, iframe
 func (c MemberAlbum) Index() revel.Result {
 	c.SetLocale()
+	c.ViewArgs["globalConfigs"] = configService.GetGlobalConfigForUser()
 	return c.RenderTemplate("member/album/index.html")
 }
 
@@ -49,4 +52,17 @@ func (c MemberAlbum) AddMemberAlbum(name string) revel.Result {
 // update alnum name
 func (c MemberAlbum) UpdateMemberAlbum(albumId, name string) revel.Result {
 	return c.RenderJSON(albumService.UpdateAlbum(albumId, c.GetUserId(), name))
+}
+
+const DEFAULT_ALBUM_ID = "52d3e8ac99c37b7f0d000001"
+
+func (c MemberAlbum) MoveAlbumImages(albumId string, fileIds []string) revel.Result {
+	albumId = strings.TrimSpace(albumId)
+	if len(albumId) == 0 {
+		albumId = DEFAULT_ALBUM_ID
+	}
+	for _, v := range fileIds {
+		fileService.UpdateImageAlbum(c.GetUserId(), v, albumId)
+	}
+	return c.RenderJSON(len(fileIds))
 }

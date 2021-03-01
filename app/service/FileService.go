@@ -3,16 +3,17 @@ package service
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/leanote/leanote/app/db"
-	"github.com/leanote/leanote/app/info"
-	. "github.com/leanote/leanote/app/lea"
-	"github.com/revel/revel"
-	"gopkg.in/mgo.v2/bson"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/leanote/leanote/app/db"
+	"github.com/leanote/leanote/app/info"
+	. "github.com/leanote/leanote/app/lea"
+	"github.com/revel/revel"
+	"gopkg.in/mgo.v2/bson"
 )
 
 const DEFAULT_ALBUM_ID = "52d3e8ac99c37b7f0d000001"
@@ -93,6 +94,10 @@ func (this *FileService) DeleteImage(userId, fileId string) (bool, string) {
 	db.GetByIdAndUserId(db.Files, fileId, userId, &file)
 
 	if file.FileId != "" {
+		noteNum := db.Count(db.NoteImages, bson.M{"ImageId": bson.ObjectIdHex(fileId)})
+		if noteNum > 0 {
+			return false, fmt.Sprintf("image in notes: %v", noteNum)
+		}
 		if db.DeleteByIdAndUserId(db.Files, fileId, userId) {
 			// delete image
 			// TODO
@@ -301,4 +306,13 @@ func (this *FileService) IsMyFile(userId, fileId string) bool {
 		return false
 	}
 	return db.Has(db.Files, bson.M{"UserId": bson.ObjectIdHex(userId), "_id": bson.ObjectIdHex(fileId)})
+}
+
+/** extensions */
+func (this *FileService) UpdateImageAlbum(userId, fileId, albumId string) bool {
+	isDefault := false
+	if albumId == DEFAULT_ALBUM_ID {
+		isDefault = true
+	}
+	return db.UpdateByIdAndUserIdMap(db.Files, fileId, userId, bson.M{"AlbumId": bson.ObjectIdHex(albumId), "IsDefaultAlbum": isDefault})
 }

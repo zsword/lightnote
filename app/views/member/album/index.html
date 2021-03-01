@@ -32,6 +32,25 @@
 					  <input type="button" class="btn btn-danger" id="delBtn" value="删除" />					  
 				  </div>
 				</form>
+				<div class="modal fade bs-modal-sm" id="albumsSwitchDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h4 class="modal-title" id="myModalLabel">移动图片</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<select class="form-control" id="albumsSwitch">
+									<option value="">{{leaMsg . "Default"}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary" id="saveMovBtn">移动</button>
+						</div>						
+				  </div>
+				</div>
 			</div>
 
 			<div id="imagePage">
@@ -139,7 +158,10 @@
 {{template "member/footer.html" .}}
 <script>
 // javascript global configration
-var G = {};
+var GlobalConfigs = {{.globalConfigs|jsonJs}}; // 2014/11/9 beta2
+var G = {
+	checkbox: true
+};
 G.imageSrcPrefix = 'upload';
 G.perPageItems = 12;
 G.maxSelected = 1;

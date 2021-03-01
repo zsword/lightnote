@@ -77,6 +77,7 @@ var o = {
     	var html = '<option value="' + ret.AlbumId + '">' + ret.Name + '</option>';
     	$("#albumsForUpload").append(html).val(ret.AlbumId);
     	$("#albumsForList").append(html);
+		$('#albumsSwitch').append(html);
     },
     pageUpdateAlbum: function(albumId, albumName) {
     	$('option[value="' + albumId + '"]').html(albumName);
@@ -180,11 +181,30 @@ var o = {
 	    	});
 
 	    });
+		var albumsSwitchDialog = $("#albumsSwitchDialog").modal({
+			show: false
+		});
+		var movFileIds = [];
+		albumsSwitchDialog.find('#saveMovBtn').click(function() {
+			if(!movFileIds.length) return false;
+			var albumId = $('#albumsSwitch').val();
+			$.post("/member/album/moveImages", {albumId:albumId, fileIds:movFileIds}, function(ret) {
+				albumsSwitchDialog.modal('hide');
+				$("#albumsForList").val(albumId);
+				$("#refresh").click();
+			});
+		});
 		$('#movBtn').click(function() {
 			var form = $('#imagesForm');
 			var ids = form.serializeArray();
-			console.log(ids);			
-		});
+			if(!ids.length) return false;
+			movFileIds = [];
+			for(var i=0;i<ids.length;i++) {
+				var obj = ids[i];
+				movFileIds.push(obj.value);
+			}
+			albumsSwitchDialog.modal('show');
+		});		
 	},
 
     renderAlbums: function() {
@@ -200,6 +220,7 @@ var o = {
 
 	    	$("#albumsForUpload").append(html);
 	    	$("#albumsForList").append(html);
+			$('#albumsSwitch').append(html);
 
 	    	var albumId = $("#albumsForList").val();
 		    self.renderImages(albumId, 1, true);
@@ -283,7 +304,9 @@ var o = {
 					classes = 'class="selected"';
 				}
 				html += '<li ' + classes + '>';
-				html += '<input type="checkbox" name="FileId" class="checkbox" value="'+each.FileId+'" />';
+				if(G.checkbox==true) {
+					html += '<input type="checkbox" name="FileId" class="checkbox" value="'+each.FileId+'" />';
+				}
 				html += '<a title="" href="javascript:;" class="a-img"><img  alt="" src="' + src + '" data-original="' + src + '" ></a>';
 				// html += '<div class="tools"><a href="javascript:;" class="del" data-id="' + each.FileId + '"><span class="fa fa-trash"></span></a></div>';
 				html += '<div class="tools clearfix" data-id="' + each.FileId + '"><div class="file-title pull-left">' + each.Title + '</div><div class="pull-right"><a href="javascript:;" class="del" data-id="' + each.FileId + '"><span class="fa fa-trash"></span></a></div></div>';
@@ -441,6 +464,10 @@ var o = {
 				var fileId = $(this).data('id');
 				$.get("/file/deleteImage", {fileId: fileId}, function(ret) {
 					if(ret) {
+						if(ret.Ok===false) {
+							self.showMsg(ret.Msg);
+							return;
+						}
 						var $li = $(t).closest('li');
 						if($li.hasClass("selected")) {
 							self.removeSelectedImage($li);
@@ -579,6 +606,17 @@ var o = {
 		self.renderAlbums();
 		//...
 		self.initUploader();
+	},
+
+	showMsg: function(msg) {
+		var tpl = $('<div class="float-msg"><div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a></div></div>');
+		tpl.find('div').append('<b>' + getMsg('Error') + ':</b> ' + msg);
+		var context = $('#myTabContent');
+		context.append(tpl);
+		console.log(context, tpl);
+		setTimeout(function() { 
+			tpl.remove();
+		}, 3000);
 	},
 
 	// 设置
@@ -755,7 +793,9 @@ var o = {
 	        add: function(e, data) {
 	        	// 文件大小限制
 				var size = data.files[0].size;
-	            var maxFileSize = +parent.GlobalConfigs["uploadImageSize"] || 100;
+				var GlobalConfigs = parent.GlobalConfigs||this.GlobalConfigs;
+				console.log(GlobalConfigs, parent, this);
+	            var maxFileSize = +GlobalConfigs["uploadImageSize"] || 100;
 	            if(typeof size == 'number' && size > 1024 * 1024 * maxFileSize) {
 	                var tpl = $('<li><div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a></div></li>');
 	                tpl.find('div').append('<b>Warning:</b> ' + data.files[0].name + ' <small>[<i>' + formatFileSize(data.files[0].size) + '</i>] is bigger than ' + maxFileSize + 'M</small> ');
