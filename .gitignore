@@ -9,7 +9,8 @@ bin/tmp
 bin/test
 public/upload
 app/routes/routes.go
-app/tmp/main.go
+/app/tmp
+/target
 .DS_Store
 .settings
 .project
@@ -18,4 +19,4 @@ files
 /node_modules
 .idea
 *.iml
-/target/
+none
