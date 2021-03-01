@@ -311,6 +311,9 @@ func (this *FileService) IsMyFile(userId, fileId string) bool {
 /** extensions */
 func (this *FileService) UpdateImageAlbum(userId, fileId, albumId string) bool {
 	isDefault := false
+	if len(albumId) < 1 {
+		albumId = DEFAULT_ALBUM_ID
+	}
 	if albumId == DEFAULT_ALBUM_ID {
 		isDefault = true
 	}

@@ -54,15 +54,21 @@ func (c MemberAlbum) UpdateMemberAlbum(albumId, name string) revel.Result {
 	return c.RenderJSON(albumService.UpdateAlbum(albumId, c.GetUserId(), name))
 }
 
-const DEFAULT_ALBUM_ID = "52d3e8ac99c37b7f0d000001"
-
 func (c MemberAlbum) MoveAlbumImages(albumId string, fileIds []string) revel.Result {
 	albumId = strings.TrimSpace(albumId)
-	if len(albumId) == 0 {
-		albumId = DEFAULT_ALBUM_ID
-	}
 	for _, v := range fileIds {
 		fileService.UpdateImageAlbum(c.GetUserId(), v, albumId)
 	}
 	return c.RenderJSON(len(fileIds))
+}
+
+func (c MemberAlbum) DeleteAlbumImages(fileIds []string) revel.Result {
+	num := 0
+	for _, v := range fileIds {
+		suc, _ := fileService.DeleteImage(c.GetUserId(), v)
+		if suc {
+			num++
+		}
+	}
+	return c.RenderJSON(num)
 }

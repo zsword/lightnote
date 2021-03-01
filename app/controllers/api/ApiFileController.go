@@ -65,8 +65,7 @@ func (c ApiFile) GetImage(fileId string) revel.Result {
 	if path == "" {
 		return c.RenderText("")
 	}
-	basePath := revel.BasePath
-	fn := basePath + "/" + strings.TrimLeft(path, "/")
+	fn := revel.BasePath + "/" + strings.TrimLeft(path, "/")
 	file, _ := os.Open(fn)
 	return c.RenderFile(file, revel.Inline) // revel.Attachment
 }

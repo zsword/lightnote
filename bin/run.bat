@@ -2,6 +2,7 @@
 title LeaNote
 
 cd %~dp0
+%~d0
 cd ..
 set SCRIPTPATH=%cd%
 cd bin
