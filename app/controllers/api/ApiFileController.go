@@ -63,11 +63,21 @@ func (c ApiFile) DeleteImage(fileId string) revel.Result {
 func (c ApiFile) GetImage(fileId string) revel.Result {
 	path := fileService.GetFile(c.getUserId(), fileId) // 得到路径
 	if path == "" {
-		return c.RenderText("")
+		//return c.RenderText("")
+		return renderErrorImage(c)
 	}
 	fn := revel.BasePath + "/" + strings.TrimLeft(path, "/")
-	file, _ := os.Open(fn)
+	file, err := os.Open(fn)
+	if err != nil {
+		return renderErrorImage(c)
+	}
 	return c.RenderFile(file, revel.Inline) // revel.Attachment
+}
+
+func renderErrorImage(c ApiFile) revel.Result {
+	fn := revel.BasePath + "/public/images/error.png"
+	file, _ := os.Open(fn)
+	return c.RenderFile(file, revel.Inline)
 }
 
 // 下载附件

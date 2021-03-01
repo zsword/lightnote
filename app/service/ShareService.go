@@ -1,12 +1,13 @@
 package service
 
 import (
+	"sort"
+	"time"
+
 	"github.com/leanote/leanote/app/db"
 	"github.com/leanote/leanote/app/info"
 	. "github.com/leanote/leanote/app/lea"
 	"gopkg.in/mgo.v2/bson"
-	"sort"
-	"time"
 )
 
 // 共享Notebook, Note服务
@@ -373,7 +374,10 @@ func (this *ShareService) AddShareNoteToUserId(noteId string, perm int, userId, 
 // updatedUserId是否有查看userId noteId的权限?
 // userId是所有者
 func (this *ShareService) HasReadPerm(userId, updatedUserId, noteId string) bool {
-	q := this.getOrQ(updatedUserId) // (toUserId == "xxx" || ToGroupId in (1, 2,3))
+	q := bson.M{}
+	if len(updatedUserId) > 0 {
+		this.getOrQ(updatedUserId) // (toUserId == "xxx" || ToGroupId in (1, 2,3))
+	}
 	q["UserId"] = bson.ObjectIdHex(userId)
 	q["NoteId"] = bson.ObjectIdHex(noteId)
 	if !db.Has(db.ShareNotes, q) {

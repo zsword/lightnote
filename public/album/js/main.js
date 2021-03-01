@@ -196,6 +196,10 @@ var o = {
 					$("#refresh").click();
 				});
 			});
+			$('#checkAllImg').change(function() {
+				var checked = this.checked;
+				$('#imagesForm').find('[name="fileId"]').prop('checked', checked);
+			});
 			movImgBtn.click(function() {
 				var form = $('#imagesForm');
 				var ids = form.serializeArray();
@@ -328,7 +332,7 @@ var o = {
 				}
 				html += '<li ' + classes + '>';
 				if(G.checkbox==true) {
-					html += '<input type="checkbox" name="FileId" class="checkbox" value="'+each.FileId+'" />';
+					html += '<input type="checkbox" name="fileId" class="checkbox" value="'+each.FileId+'" />';
 				}
 				html += '<a title="" href="javascript:;" class="a-img"><img  alt="" src="' + src + '" data-original="' + src + '" ></a>';
 				// html += '<div class="tools"><a href="javascript:;" class="del" data-id="' + each.FileId + '"><span class="fa fa-trash"></span></a></div>';
