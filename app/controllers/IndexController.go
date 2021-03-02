@@ -17,6 +17,10 @@ func (c Index) Default() revel.Result {
 		blog := Blog{c.BaseController}
 		return blog.Index(configService.GetAdminUsername())
 	}
+	// userID := c.GetUserId()
+	// if userID != "" {
+	// 	return c.Redirect("/note")
+	// }
 	return c.Index()
 }
 

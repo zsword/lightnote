@@ -10,12 +10,12 @@ var gulpSequence = require('gulp-sequence');
 
 var fs = require('fs');
 
-var leanoteBase = './';
+var leanoteBase = '.';
 var base = leanoteBase + '/public'; // public base
 var noteDev = leanoteBase + '/app/views/note/note-dev.html';
 var noteProBase = leanoteBase + '/app/views/note';
 
-var messagesPath = leanoteBase + 'messages';
+var messagesPath = leanoteBase + '/messages';
 
 // 合并Js, 这些js都是不怎么修改, 且是依赖
 // 840kb, 非常耗时!!
@@ -157,7 +157,7 @@ gulp.task('devToProHtml', function() {
 
 // 只获取需要js i18n的key
 var path = require('path');
-gulp.task('i18n', function() {
+gulp.task('i18n', function(done) {
     var keys = {};
     var reg = /getMsg\(["']+(.+?)["']+/g;
     // {rule: "required", msg: "inputNewPassword"},
@@ -190,7 +190,7 @@ gulp.task('i18n', function() {
                     // }
                 }
             }  
-        }  
+        }
     }
 
     console.log('parsing used keys');
@@ -276,13 +276,18 @@ gulp.task('i18n', function() {
 
         // 写入到文件中
         var toFilename = targetFilename + '.' + lang + '.js';
-        fs.writeFile(base + '/js/i18n/' + toFilename, str);
+        doWriteFile(base + '/js/i18n/' + toFilename, str, function(){});
     }
 
     function genTinymceLang(lang) {
-        var msgs = getAllMsgs(leanoteBase + 'messages/' + lang + '/tinymce_editor.conf');
+        var msgs = getAllMsgs(leanoteBase + '/messages/' + lang + '/tinymce_editor.conf');
         var str = 'tinymce.addI18n("' + lang + '",' + JSON.stringify(msgs) + ');';
-        fs.writeFile(base + '/tinymce/langs/' + lang + '.js', str);
+        doWriteFile(base + '/tinymce/langs/' + lang + '.js', str);
+    }
+
+    function doWriteFile(path, data, cb) {
+        cb = cb||function(){};
+        fs.writeFile(path, data, cb);
     }
 
     var langs = getAllLangs();
@@ -292,7 +297,7 @@ gulp.task('i18n', function() {
 
         genTinymceLang(lang);
     }
-    
+    done();
 });
 
 // 合并album需要的js
@@ -365,7 +370,7 @@ gulp.task('concatCss', function() {
 
 // mincss
 var minifycss = require('gulp-minify-css');
-gulp.task('minifycss', function() {
+gulp.task('minifycss', function(done) {
     gulp.src(base + '/css/bootstrap.css')
         .pipe(rename({suffix: '-min'}))
         .pipe(minifycss())
@@ -401,9 +406,10 @@ gulp.task('minifycss', function() {
             .pipe(gulp.dest(base + '/css/theme'));
     }
     */
+   done();
 });
 
 
-gulp.task('concat', ['concatDepJs', 'concatAppJs', /* 'concatMarkdownJs', */'concatMarkdownJsV2']);
-gulp.task('html', ['devToProHtml']);
-gulp.task('default', ['concat', 'plugins', 'minifycss', 'i18n', 'concatAlbumJs', 'html']);
+gulp.task('concat', gulp.parallel('concatDepJs', 'concatAppJs', /* 'concatMarkdownJs', */'concatMarkdownJsV2'));
+gulp.task('html', gulp.parallel('devToProHtml'));
+gulp.task('default', gulp.parallel('concat', 'plugins', 'minifycss', 'i18n', 'concatAlbumJs', 'html'));

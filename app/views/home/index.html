@@ -7,16 +7,20 @@
 		<p>{{msg . "moto2"}}</p>
 		
 		<div>
+			{{if not .userInfo.UserId}}
 			<a class="btn btn-default btn-primary" href="/register">{{msg . "register"}}</a> 
 			&nbsp;
-			&nbsp;
-			{{if not .userInfo.UserId}}
+			&nbsp;			
 				<a class="btn btn-default" href="/login">{{msg . "login"}}</a>
 				&nbsp;
-				&nbsp;
-			{{end}}
-			
+				&nbsp;			
 			<a class="btn btn-default" href="/demo">{{msg . "try"}}</a>
+			{{else}}
+				<a class="btn btn-default btn-primary" href="/note">{{msg . "myNote"}}</a>
+				&nbsp;
+				&nbsp;
+				<a class="btn btn-default" href="/note">{{msg . "myBlog"}}</a>
+			{{end}}			
 		</div>
 	</div>
 	

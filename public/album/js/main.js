@@ -235,7 +235,7 @@ var o = {
 	},
 
     renderAlbums: function() {
-    	var self = this;
+    	var self = this;		
     	$.get("/album/getAlbums", function(ret) {
     		if(!ret) return;
     		var html = "";
@@ -248,6 +248,11 @@ var o = {
 	    	$("#albumsForUpload").append(html);
 	    	$("#albumsForList").append(html);
 			$('#albumsSwitch').append(html);
+
+			var imgAlbumId = sessionStorage.getItem('imgAlbumId');
+			if(imgAlbumId) {
+				$('#albumsForList').val(imgAlbumId);
+			}
 
 	    	var albumId = $("#albumsForList").val();
 		    self.renderImages(albumId, 1, true);
@@ -466,8 +471,9 @@ var o = {
 		self.processAlbum();
 
 		$("#albumsForList").change(function() {
-			var albumId = $(this).val();
+			var albumId = $(this).val();			
 			self.renderImages(albumId, 1, true);
+			sessionStorage.setItem('imgAlbumId', albumId);
 		});
 		
 		$("#imageList").on("click", 'li', function() {			

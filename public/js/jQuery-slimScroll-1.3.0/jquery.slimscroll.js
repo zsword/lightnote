@@ -382,9 +382,10 @@
         {
           if (window.addEventListener)
           {
-            this.addEventListener('DOMMouseScroll', _onWheel, false );
-            this.addEventListener('mousewheel', _onWheel, false );
-            this.addEventListener('MozMousePixelScroll', _onWheel, false );
+            //fixed passive:false
+            this.addEventListener('DOMMouseScroll', _onWheel, {passive: false});
+            this.addEventListener('mousewheel', _onWheel, {passive: false});
+            this.addEventListener('MozMousePixelScroll', _onWheel, {passive: false});
           }
           else
           {
