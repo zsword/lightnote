@@ -2,32 +2,32 @@
 	{{$userId := $.blogInfo.UserId}}
 	<div class="container" id="footer">
         <div class="col-md-4">
-          <h3>Navigation</h3>
+          <h3>{{leaMsg . "Navigation"}}</h3>
           <ul>
-          	<li><a href="{{$.indexUrl}}">Home</a></li>
+          	<li><a href="{{$.indexUrl}}">{{leaMsg . "Home"}}</a></li>
           	{{range $.cates}}
 			<li>
-				<a href="{{$.cateUrl}}/{{.UrlTitle}}">{{.Title}}</a>
+				<a href="{{$.cateUrl}}/{{.UrlTitle}}">{{msg $ .Title}}</a>
 			</li>
 			{{end}}
 			<!-- 单页 -->
 			{{range $.singles}}
 			    <li class="{{if eq $.curSingleId .SingleId}}active{{end}}">
-					<a href="{{$.singleUrl}}/{{.UrlTitle}}">{{.Title}}</a>
+					<a href="{{$.singleUrl}}/{{.UrlTitle}}">{{msg $ .Title}}</a>
 				</li>
 			{{end}}
 			
 			<!-- 归档 -->
 			<li class="{{if $.curIsArchive}}active{{end}}">
-				<a href="{{$.archiveUrl}}">Archives</a>
+				<a href="{{$.archiveUrl}}">{{leaMsg . "Archives"}}</a>
 			</li>
 			<li class="{{if $.curIsTags}}active{{end}}">
-				<a href="{{$.tagsUrl}}">Tags</a>
+				<a href="{{$.tagsUrl}}">{{leaMsg . "Tags"}}</a>
 			</li>
           </ul>
         </div>
         <div class="col-md-4">
-          <h3>Recent Posts</h3>
+          <h3>{{leaMsg . "Recent Posts"}}</h3>
           <ul>
           	{{range .recentPosts}}
           	<li title="{{.Title}}"><a href="{{$.postUrl}}/{{.UrlTitle}}">
@@ -41,11 +41,11 @@
           </ul>
        </div>
         <div class="col-md-4">
-          <h3>Friend Links</h3>
+          <h3>{{leaMsg . "Friend Links"}}</h3>
           <ul>
           	{{if $.themeInfo.FriendLinks}}
           		{{range $.themeInfo.FriendLinks}}
-					<li><a href="{{.Url}}" target="_blank">{{.Title}}</a></li>
+					<li><a href="{{.Url}}" target="_blank">{{msg $ .Title}}</a></li>
           		{{end}}
           	{{end}}
 		 </ul>

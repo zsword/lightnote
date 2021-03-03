@@ -86,7 +86,7 @@ function log(o) {
 	    <div class="navbar-collapse collapse">
 	      <ul class="nav navbar-nav">
 	      	
-	    	<li class="{{if $.curIsIndex}}active{{end}}"><a href="{{.indexUrl}}">Home</a></li>
+	    	<li class="{{if $.curIsIndex}}active{{end}}"><a href="{{.indexUrl}}">{{leaMsg . "Home"}}</a></li>
 		    <!-- 分类页 -->
 		   	{{range $.cates}}
 				<li class="{{if eq .CateId $.curCateId}}active{{end}}">
@@ -97,16 +97,16 @@ function log(o) {
 			<!-- 单页 -->
 			{{range $.singles}}
 			    <li class="{{if eq $.curSingleId .SingleId}}active{{end}}">
-					<a href="{{$.singleUrl}}/{{.UrlTitle}}">{{.Title}}</a>
+					<a href="{{$.singleUrl}}/{{.UrlTitle}}">{{msg $ .Title}}</a>
 				</li>
 			{{end}}
 			
 			<!-- 归档 -->
 			<li class="{{if $.curIsArchive}}active{{end}}">
-				<a href="{{$.archiveUrl}}">Archives</a>
+				<a href="{{$.archiveUrl}}">{{leaMsg . "Archives"}}</a>
 			</li>
 			<li class="{{if $.curIsTags}}active{{end}}">
-				<a href="{{$.tagsUrl}}">Tags</a>
+				<a href="{{$.tagsUrl}}">{{leaMsg . "Tags"}}</a>
 			</li>
 			
 	      </ul>
