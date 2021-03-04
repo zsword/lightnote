@@ -86,7 +86,7 @@ function log(o) {
 	    <div class="navbar-collapse collapse">
 	      <ul class="nav navbar-nav">
 	      	
-	    	<li class="{{if $.curIsIndex}}active{{end}}"><a href="{{.indexUrl}}">Home</a></li>
+	    	<li class="{{if $.curIsIndex}}active{{end}}"><a href="{{.indexUrl}}">{{leaMsg . "Home"}}</a></li>
 		    <!-- 分类页 -->
 		   	{{range $.cates}}
 				<li class="{{if eq .CateId $.curCateId}}active{{end}}">
