@@ -1,0 +1,5 @@
+.recent-posts > li {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

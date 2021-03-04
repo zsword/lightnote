@@ -1,7 +1,7 @@
 <div id="footerContainer">
 	{{$userId := $.blogInfo.UserId}}
 	<div class="container" id="footer">
-        <div class="col-md-4">
+        <div class="col-md-2">
           <h3>{{leaMsg . "Navigation"}}</h3>
           <ul>
           	<li><a href="{{$.indexUrl}}">{{leaMsg . "Home"}}</a></li>
@@ -26,9 +26,9 @@
 			</li>
           </ul>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <h3>{{leaMsg . "Recent Posts"}}</h3>
-          <ul>
+          <ul class="recent-posts">
           	{{range .recentPosts}}
           	<li title="{{.Title}}"><a href="{{$.postUrl}}/{{.UrlTitle}}">
           	    {{if .Title}}
@@ -40,7 +40,7 @@
           	{{end}}
           </ul>
        </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
           <h3>{{leaMsg . "Friend Links"}}</h3>
           <ul>
           	{{if $.themeInfo.FriendLinks}}
