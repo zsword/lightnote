@@ -134,19 +134,22 @@ function getDateDiff(dateTimeStamp) {
     var dayC = diffValue / diff.day;
     var hourC = diffValue / diff.hour;
     var minC = parseInt(diffValue / diff.minute);
+	var timeS = null;
     if (monthC >= 1) {
-        result = parseInt(monthC) + " month ago";
+        result = parseInt(monthC);timeS="month ago";
     } else if (weekC >= 1) {
-        result = parseInt(weekC) + " weeks ago";
+        result = parseInt(weekC);timeS="weeks ago";
     } else if (dayC >= 1) {
-        result = parseInt(dayC) + " days ago";
+        result = parseInt(dayC);timeS="days ago";
     } else if (hourC >= 1) {
-        result = parseInt(hourC) + " hours ago";
+        result = parseInt(hourC);timeS="hours ago";
     } else if (minC > 1) {
-        result = minC + " minutes ago";
+        result = minC;timeS="minutes ago";
     } else {
-        result = "Just now";
+        result = "";timeS="Just now";
     }
+	timeS = getMsg(timeS);
+	result = result+" "+timeS;
     return result;
 }
 
@@ -377,6 +380,7 @@ function getLikes(noteId, callback) {
 // 得到赞和评论
 function getLikesAndComments(noteId, callback) {
 	ajaxGetP(getLeanoteUrl() + "/blog/getLikesAndComments", {noteId: noteId}, callback);
+	//ajaxGet(getCurHostUrl() + "/blog/getLikesAndComments", {noteId: noteId}, callback);
 }
 // 得到评论
 function getComments(noteId, page, callback) {

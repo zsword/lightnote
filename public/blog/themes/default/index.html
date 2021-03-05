@@ -1,12 +1,19 @@
 {{template "header.html" .}}
 
 <div id="postsContainer">
-
+	<span id="top"></span>
 	<div id="posts">
 	    {{template "post_abstract.html" $}}
 	    <!-- paging -->
 		{{template "paging.html" $}}
 	</div>
+	<div id="scrollpage" style="left: 1170px; visibility: visible;">
+		<span hidefocus="true">
+			<a title="返回顶部" href="#top" class="scrolltop"><b>{{leaMsg . "scroll to top"}}</b></a>
+			<a title="返回底部" href="#bottom" class="scrollbottom"><b>{{leaMsg . "scroll to bottom"}}</b></a>
+		</span>
+	</div>	
+	<span id="bottom"></span>
 </div>
 {{template "footer.html" $}}
 {{template "highlight.html" $}}

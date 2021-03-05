@@ -81,6 +81,9 @@ func (c Blog) e404(themePath string) revel.Result {
 // life.leanote.com
 // lealife.com
 func (c Blog) domain() (ok bool, userBlog info.UserBlog) {
+	if userBlog.UserId == "" {
+		userBlog.UserId = bson.ObjectId(c.GetUsername())
+	}
 	host := c.Request.Host // a.cc.com:9000
 	hostArr := strings.Split(host, ".")
 	if strings.Contains(host, configService.GetDefaultDomain()) {
@@ -584,6 +587,12 @@ func (c Blog) Index(userIdOrEmail string) (re revel.Result) {
 			re = c.e404(userBlog.ThemePath)
 		}
 	}()
+	if userIdOrEmail == "" {
+		userIdOrEmail = c.GetUsername()
+		if userIdOrEmail != "" {
+			return c.Redirect("/blog/" + userIdOrEmail)
+		}
+	}
 	// 用户id为空, 则是admin用户的博客
 	if userIdOrEmail == "" {
 		userIdOrEmail = configService.GetAdminUsername()
@@ -786,6 +795,7 @@ func (c Blog) GetLikes(noteId string, callback string) revel.Result {
 }
 func (c Blog) GetLikesAndComments(noteId, callback string) revel.Result {
 	userId := c.GetUserId()
+	fmt.Printf("%v\n", userId)
 	result := map[string]interface{}{}
 
 	// 我也点过?

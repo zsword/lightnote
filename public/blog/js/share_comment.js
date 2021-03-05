@@ -71,7 +71,7 @@ var C = {
 					self.commentsMoreO.removeClass("hide");
 					self.initMoreComments();
 				}
-				
+				console.log(self);
 				// 是否已经登录?
 				if(self.visitUserInfo.UserId) {
 					$("#commentForm").removeClass("hide");

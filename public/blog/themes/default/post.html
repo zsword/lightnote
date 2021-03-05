@@ -1,6 +1,7 @@
 {{template "header.html" .}}
 
 <div id="postsContainer">
+	<span id="top"></span>	
 	<div id="posts">
 		<div class="each-post">
 			<div class="title">
@@ -69,6 +70,13 @@
 			{{template "share_comment.html" $}}
 		</div>
 	</div>
+	<div id="scrollpage" style="left: 1170px; visibility: visible;">
+		<span hidefocus="true">
+			<a title="返回顶部" href="#top" class="scrolltop"><b>返回顶部</b></a>
+			<a title="返回底部" href="#bottom" class="scrollbottom"><b>返回底部</b></a>
+		</span>
+	</div>	
+	<span id="bottom"></span>
 </div>
 
 {{template "footer.html" $}}
@@ -111,6 +119,10 @@ markdown
 {{if $.post.IsMarkdown }}
 <script src="/public/libs/md2html/md2html.js"></script>
 <script>
+function scrollPage(x, y) {
+	window.scrollTo(0, 0);
+	console.log(window.scrollX);
+}	
 var content = $.trim($("#markdownContent textarea").val());
 md2Html(content, $("#content"), function(html) {
     $("pre").addClass("prettyprint linenums");

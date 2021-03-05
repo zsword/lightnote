@@ -1,22 +1,22 @@
 <!-- 赞 -->
 <div class="entry-controls clearfix">
 	<div class="vote-section-wrapper clearfix">
-		<button class="btn btn-default btn-zan" id="likeBtn"><i class="fa fa-thumbs-o-up"></i> <span id="likeNum">{{$.post.LikeNum}}</span> likes</button>
+		<button class="btn btn-default btn-zan" id="likeBtn"><i class="fa fa-thumbs-o-up"></i> <span id="likeNum">{{$.post.LikeNum}}</span> {{leaMsg . "likes"}}</button>
 		<span class="control-item read-counts"><i class="fa fa-eye"></i> {{if $.post.ReadNum}}{{$.post.ReadNum}}{{else}}1{{end}}</span>
 	</div>
 	<div class="right-section">
 		<div id="weixinQRCode"></div>
-		<button class="btn btn-share btn-default btn-weibo"><i class="fa fa-weibo"></i> Weibo</button>
-		<button class="btn btn-share btn-default btn-weixin"><i class="fa fa-wechat"></i> Wechat</button>
+		<button class="btn btn-share btn-default btn-weibo"><i class="fa fa-weibo"></i> {{leaMsg . "Weibo"}}</button>
+		<button class="btn btn-share btn-default btn-weixin"><i class="fa fa-wechat"></i> {{leaMsg . "Wechat"}}</button>
 		<div class="dropdown" style="display: inline-block; cursor: pointer; padding: 5px 10px; padding-right: 30px">
 			
 			<div class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
 				<i class="fa fa-ellipsis-h"></i>
 			</div>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" class="btn-share tencent-weibo"><i class="fa fa-tencent-weibo"></i> Tencent Weibo</a></li>
-				<li><a href="#" class="btn-share qq"><i class="fa fa-qq"></i> QQ Zone</a></li>
-				<li><a href="#" class="btn-share renren"><i class="fa fa-renren"></i> RenRen</a></li>
+				<li><a href="#" class="btn-share tencent-weibo"><i class="fa fa-tencent-weibo"></i> {{leaMsg . "Tencent Weibo"}}</a></li>
+				<li><a href="#" class="btn-share qq"><i class="fa fa-qq"></i> {{leaMsg . "QQ Zone"}}</a></li>
+				<li><a href="#" class="btn-share renren"><i class="fa fa-renren"></i> {{leaMsg . "RenRen"}}</a></li>
 			</ul>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 			<div class="comment-hd">
 				<a href="[[:UserInfo.BlogUrl]]" target="_blank" >[[:UserInfo.Username]]</a>
 				[[if IsAuthorComment]]
-				<span>(Author)</span>
+				<span>({{leaMsg . "Author"}})</span>
 				[[/if]]
 				
 				<!-- 回复其它人 -->
@@ -59,7 +59,7 @@
 			        <a href="[[:ToUserInfo.BlogUrl]]">[[:ToUserInfo.Username]]</a>
 					</span>
 					[[if ToUserIsAuthor]]
-					<span>(Author)</span>
+					<span>({{leaMsg . "Author"}})</span>
 					[[/if]]
 				[[/if]]
 			</div>
@@ -67,12 +67,12 @@
 				[[html:Content]]
 			</div>
 			<div class="comment-ft clearfix" data-comment-id="[[:CommentId]]" >
-				<span title="" ui-time="" class="date">[[:PublishDate]] </span>
-				<span class="like-num [[if !LikeNum]]hide[[/if]]" title="[[:LikeNum]] likes"><span class="like-num-i">[[:LikeNum]]</span> likes</span></span>
+				<span title="" ui-time="" class="date">[[:PublishDate]]</span>
+				<span class="like-num [[if !LikeNum]]hide[[/if]]" title="[[:LikeNum]] likes"><span class="like-num-i">[[:LikeNum]]</span> {{leaMsg . "likes"}}</span></span>
 				
 				[[if ~root.visitUserInfo.UserId]]
 					[[if IsMyNote && !IsMyComment]]
-						<a href="javascript:;" class="comment-trash op-link "><i class="fa fa-trash"></i> Delete</a>
+						<a href="javascript:;" class="comment-trash op-link "><i class="fa fa-trash"></i> {{leaMsg . "Delete"}}</a>
 					[[/if]]
 					[[if !IsMyComment]]
 					<a href="javascript:;" class="comment-reply op-link ">
@@ -99,8 +99,8 @@
 				</div>
 				
 				<div class="command clearfix" style="display: block;">
-					<button class="reply-comment-btn save btn btn-primary" data-comment-id="[[:CommentId]]">Submit</button>
-					<a class="cancel reply-cancel btn-link">Cancel</a>
+					<button class="reply-comment-btn save btn btn-primary" data-comment-id="[[:CommentId]]">{{leaMsg . "Submit"}}</button>
+					<a class="cancel reply-cancel btn-link">{{leaMsg . "Cancel"}}</a>
 				</div>
 			</form>
 			[[/if]]
@@ -117,21 +117,21 @@
 				<img class="avatar" id="visitUserLogo">
 			</div>
 			<div class="editor-wrap">
-				<textarea class="editable" id="commentContent" name="commentContent" placeholder="Your comment here" style="height: 100px;"></textarea>
+				<textarea class="editable" id="commentContent" name="commentContent" placeholder="{{leaMsg . "Your comment here"}}" style="height: 100px;"></textarea>
 			</div>
 		</div>
 		<div class="command clearfix" style="display: block;">
-			<button id="commentBtn" class="reply-comment-btn save btn btn-primary">Submit</button>
+			<button id="commentBtn" class="reply-comment-btn save btn btn-primary">{{leaMsg . "Submit"}}</button>
 		</div>
 	</form>
 	<div class="needLogin hide" id="noLoginContainer">
-		<a onclick="goLogin()">Sign in</a> to leave a comment.
+		<a onclick="goLogin()">{{leaMsg . "Sign in"}}</a> {{leaMsg . "to leave a comment."}}
 		<br />
-		No Leanote account? <a onclick="goRegister()">Sign up now.</a>
+		{{leaMsg . "No Leanote account?"}} <a onclick="goRegister()">{{leaMsg . "Sign up now."}}</a>
 	</div>
 	<div class="box-header">
 	    <span class="counter">
-	      <i class="icon icon-comment"></i><span id="commentNum">{{$.post.CommentNum}}</span> comments
+	      <i class="icon icon-comment"></i><span id="commentNum">{{$.post.CommentNum}}</span> {{leaMsg . "comments"}}
 	    </span>
     </div>
     <!-- 评论列表 -->
@@ -142,7 +142,7 @@
 <!-- 更多评论 -->
 <div id="moreComments">
 	<div class="hide comments-more">
-		<a>More...</a>
+		<a>{{leaMsg . "More"}}...</a>
 	</div>
 	<div class="comments-loading">
 		<img src="/images/loading-32.gif" />
