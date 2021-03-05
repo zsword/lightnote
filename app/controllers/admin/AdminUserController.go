@@ -3,6 +3,7 @@ package admin
 import (
 	. "github.com/leanote/leanote/app/lea"
 	"github.com/revel/revel"
+
 	//	"time"
 	"github.com/leanote/leanote/app/info"
 )
@@ -30,6 +31,7 @@ func (c AdminUser) Index(sorter, keywords string, pageSize int) revel.Result {
 }
 
 func (c AdminUser) Add() revel.Result {
+	c.SetLocale()
 	return c.RenderTemplate("admin/user/add.html")
 }
 

@@ -5,10 +5,10 @@
 	<div class="row wrapper">
 		<div class="col-sm-5 m-b-xs">
 			<button class="btn btn-sm btn-default bulk-send">
-				Send
+				{{leaMsg . "Send"}}
 			</button>
 			<button class="btn btn-sm btn-default bulk-delete">
-				Delete
+				{{leaMsg . "Delete"}}
 			</button>
 		</div>
 		<div class="col-sm-4 m-b-xs">
@@ -18,7 +18,7 @@
 			<div class="input-group search-group">
 				<input type="text" class="input-sm form-control" placeholder="Email" id="keywords" value="{{.keywords}}" />
 				<span class="input-group-btn">
-					<button class="btn btn-sm btn-default" type="button" data-url="/adminEmail/list">Search</button>
+					<button class="btn btn-sm btn-default" type="button" data-url="/adminEmail/list">{{leaMsg . "Search"}}</button>
 				</span>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 					<th 
 					{{sorterTh $url "email" .sorter}}
 					>
-						Email
+						{{leaMsg . "Email"}}
 						<span class="th-sort">
 							<i class="fa fa-sort-down"></i>
 							<i class="fa fa-sort-up"></i>
@@ -44,7 +44,7 @@
 					<th
 					{{sorterTh $url "subject" .sorter}}
 					>
-						Subject
+						{{leaMsg . "Subject"}}
 						<span class="th-sort">
 							<i class="fa fa-sort-down"></i>
 							<i class="fa fa-sort-up"></i>
@@ -54,7 +54,7 @@
 					<th
 					{{sorterTh $url "ok" .sorter}}
 					>
-						Ok
+						{{leaMsg . "Ok"}}
 						<span class="th-sort">
 							<i class="fa fa-sort-down"></i>
 							<i class="fa fa-sort-up"></i>
@@ -64,7 +64,7 @@
 					<th
 					{{sorterTh $url "msg" .sorter}}
 					>
-						Msg
+						{{leaMsg . "Msg"}}
 						<span class="th-sort">
 							<i class="fa fa-sort-down"></i>
 							<i class="fa fa-sort-up"></i>
@@ -74,7 +74,7 @@
 					<th
 					{{sorterTh $url "createdTime" .sorter}}
 					>
-						Date
+						{{leaMsg . "Date"}}
 						<span class="th-sort">
 							<i class="fa fa-sort-down"></i>
 							<i class="fa fa-sort-up"></i>
@@ -107,8 +107,8 @@
 						{{.CreatedTime|datetime}}
 					</td>
 					<td>
-						<a href="#" class="btn btn-default send-email" data-email="{{.Email}}">Send</a>
-						<a href="#" class="btn btn-default delete-email" data-id="{{.LogId.Hex}}">Delete</a>
+						<a href="#" class="btn btn-default send-email" data-email="{{.Email}}">{{leaMsg $ "Send"}}</a>
+						<a href="#" class="btn btn-default delete-email" data-id="{{.LogId.Hex}}">{{leaMsg $ "Delete"}}</a>
 					</td>
 				</tr>
 				{{end}}
@@ -119,10 +119,10 @@
 		<div class="row">
 			<div class="col-sm-4 hidden-xs">
 				<button class="btn btn-sm btn-default bulk-send">
-					Send
+					{{leaMsg . "Send"}}
 				</button>
 				<button class="btn btn-sm btn-default bulk-delete">
-					Delete
+					{{leaMsg . "Delete"}}
 				</button>
 			</div>
 			<div class="col-sm-4 text-right text-center-xs">

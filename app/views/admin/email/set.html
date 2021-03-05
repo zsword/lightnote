@@ -8,20 +8,20 @@
 		<section class="panel panel-default">
 			<div class="panel-body">
 				<div class="form-group">
-					<label>Host</label>
+					<label>{{leaMsg . "Host"}}</label>
 					<input type="text" class="form-control" name="emailHost" value="{{.str.emailHost}}" placeholder="eg. smtp.ym.163.com">
 				</div>
 				<div class="form-group">
-					<label>Port</label>
+					<label>{{leaMsg . "Port"}}</label>
 					<input type="text" class="form-control" name="emailPort" value="{{.str.emailPort}}" placeholder="eg. 25">
 				</div>
 				<div class="form-group">
-					<label>Username</label>
+					<label>{{leaMsg . "Username"}}</label>
 					<input type="text" class="form-control" name="emailUsername" value="{{.str.emailUsername}}" placeholder="">
 				</div>
 				
 				<div class="form-group">
-					<label>Password</label>
+					<label>{{leaMsg . "Password"}}</label>
 					<input type="text" class="form-control" name="emailPassword" value="{{.str.emailPassword}}" placeholder="">
 				</div>
 				<div class="form-group">

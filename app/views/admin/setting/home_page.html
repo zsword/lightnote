@@ -1,25 +1,25 @@
 {{template "admin/top.html" .}}
-<div class="m-b-md"> <h3 class="m-b-none">Home Page</h3></div>
+<div class="m-b-md"> <h3 class="m-b-none">{{leaMsg . "Home Page"}}</h3></div>
 
 <div class="row">
 
 <div class="col-sm-6">
 	<form id="form_data">
 		<section class="panel panel-default">
-			<div class="panel-body">
-				<div class="form-group">
-					<label><a href="/blog" target="_blank">Admin's Blog Page</a></label>
-					<input type="radio" class="form-control" name="homePage" {{if not .str.homePage}}checked="checked"{{end}} value="0">
+			<div class="panel-body checkbox-group">
+				<div class="form-group" style="vertical-align: middle;">
+					<label style="width:200px;"><a href="/blog" target="_blank">{{leaMsg . "Admin`s Blog Page"}}</a></label>
+					<input type="radio" class="form-control inline" style="width:100px;" name="homePage" {{if not .str.homePage}}checked="checked"{{end}} value="0">
 				</div>
 				
-				<div class="form-group">
-					<label><a href="/index" target="_blank">Index Page</a></label>
-					<input type="radio" class="form-control" name="homePage" {{if .str.homePage}}checked="checked"{{end}} value="1">
+				<div class="form-group ">
+					<label style="width:200px;"><a href="/index" target="_blank">{{leaMsg . "Index Page"}}</a></label>
+					<input type="radio" class="form-control inline" style="width:100px;" name="homePage" {{if .str.homePage}}checked="checked"{{end}} value="1">
 				</div>
 			</div>
 			
 			<footer class="panel-footer text-right bg-light lter">
-				<button type="submit" id="submit" class="btn btn-success btn-s-xs">Submit</button>
+				<button type="submit" id="submit" class="btn btn-success btn-s-xs">{{leaMsg . "Submit"}}</button>
 			</footer>
 		</section>
 	</form>

@@ -4206,3 +4206,18 @@ fieldset[disabled] .btn-gplus.active {
 .nav-primary ul.lt > li a {
   padding-left: 40px;
 }
+.checkbox-group {
+  text-align: center;
+}
+.checkbox-group label {
+  text-align: right;
+}
+.checkbox-group > .form-group {
+  padding-top: 5px;
+}
+.checkbox-group * {
+  vertical-align: middle;
+}
+.checkbox-group .form-group label > a {
+  font-size: 22px;
+}

@@ -23,29 +23,29 @@
 			<div class="navbar-header logo-ctn">
 				<a href="/admin/index" class="navbar-brand clearfix" data-toggle="fullscreen">
 					<span id="logo"></span>
-					<span class="logo-title">Admin</span>
+					<span class="logo-title">{{leaMsg . "Admin"}}</span>
 				</a>
 			</div>
 			
 			<ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user">
 				<li class="hidden-xs">
 					<a href="/" class="dk">
-						Home
+						{{leaMsg . "Home"}}
 					</a>
 				</li>
 				<li class="hidden-xs">
 					<a href="/note" class="dk">
-						My Note
+						{{leaMsg . "My Note"}}
 					</a>
 				</li>
 				<li class="hidden-xs">
 					<a href="/blog" class="dk">
-						My Blog
+						{{leaMsg . "My Blog"}}
 					</a>
 				</li>
 				<li class="hidden-xs">
 					<a href="/logout" class="dk">
-						Logout
+						{{leaMsg . "Logout"}}
 					</a>
 				</li>
 			</ul>
@@ -77,7 +77,7 @@
 						</section>
 						<footer class="footer lt hidden-xs b-t b-light" style="min-height: initial;
 padding: 10px 15px;text-align:center;">
-							© <a href="https://leanote.com" target="_blank">Leanote</a>
+							© <a href="https://leanote.com" target="_blank">{{leaMsg . "Leanote"}}</a>
 							<!--
 							<a href="#nav" data-toggle="class:nav-xs" class="pull-right btn btn-sm btn-default btn-icon">
 								<i class="fa fa-angle-left text">

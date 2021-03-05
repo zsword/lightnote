@@ -49,6 +49,9 @@ func init() {
 		revel.ActionInvoker,     // Invoke the action.
 	}
 
+	revel.TemplateFuncs["str"] = func(val interface{}) string {
+		return fmt.Sprint(val)
+	}
 	revel.TemplateFuncs["raw"] = func(str string) template.HTML {
 		return template.HTML(str)
 	}
